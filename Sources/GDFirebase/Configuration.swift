@@ -6,28 +6,23 @@
 //
 import Foundation
 
-public struct DECConfiguration {
+public struct Configuration {
     
-    var switcher  : Bool
-    let fbId      : String?
-    var domain    : String?
-    let closeChain: String?
-    
+    let advertisingURL: Bool
+    let isAdvertising : String
     
     enum CodingKeys: String, CodingKey {
-        case switcher
-        case fbId
-        case domain
-        case closeChain
+        
+        case advertisingURL
+        case isAdvertising
     }
 }
-extension DECConfiguration: Decodable {
+
+extension Configuration: Decodable {
     
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
-        self.switcher   = (try? values.decode(Bool.self,   forKey: .switcher)) ?? false
-        self.fbId       = (try? values.decode(String.self, forKey: .fbId))
-        self.domain     = (try? values.decode(String.self, forKey: .domain))
-        self.closeChain = (try? values.decode(String.self, forKey: .closeChain))
+        self.advertisingURL = try values.decode(Bool.self,   forKey: .advertisingURL)
+        self.isAdvertising  = try values.decode(String.self, forKey: .isAdvertising)
     }
 }

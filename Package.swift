@@ -18,9 +18,7 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-//        .package(url : "https://github.com/firebase/firebase-ios-sdk.git",
-//                 from: "9.0.0"),
-        .package(url: "https://github.com/firebase/firebase-ios-sdk.git", from: "8.10.0"),
+        .package(url: "https://github.com/firebase/firebase-ios-sdk.git", branch: "master"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
@@ -29,6 +27,8 @@ let package = Package(
             name: "GDFirebase",
             dependencies: [
                 .product(name: "FirebaseRemoteConfig", package: "firebase-ios-sdk"),
+                .product(name: "FirebaseFirestore", package: "firebase-ios-sdk"),
+                .product(name: "FirebaseFirestoreSwift", package: "firebase-ios-sdk"),
             ]
         ),
     ]
