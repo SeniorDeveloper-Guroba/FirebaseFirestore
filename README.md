@@ -1,3 +1,3 @@
-# GDFirebase
+# AdvertisingFirebase
 
-A description of this package.
+Library for adding ads to applications
