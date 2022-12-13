@@ -19,7 +19,7 @@ public class RemoteService {
         return remoteConfig
     }
     
-    public func getConfiguration<T: RequestDataAdvertising>(requestData: T, completion: @escaping ClosureResult<T.ReturnDecodable>) {
+    public func getConfiguration<T: RequestData>(requestData: T, completion: @escaping ClosureResult<T.ReturnDecodable>) {
         self.remoteConfig().fetchAndActivate { (status, error) in
             DispatchQueue.main.async { [self] in
                 if status == .error {
