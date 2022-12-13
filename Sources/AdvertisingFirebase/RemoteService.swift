@@ -1,5 +1,5 @@
 //
-//  RemoteConfiguration.swift
+//  RemoteService.swift
 //  
 //
 //  Created by Senior Developer on 06.12.2022.
@@ -7,7 +7,7 @@
 import FirebaseRemoteConfig
 import Firebase
 
-public struct RemoteConfiguration {
+public class RemoteService {
     
     private let configurationID = "configuration"
     
@@ -21,7 +21,7 @@ public struct RemoteConfiguration {
     
     public func getConfiguration<T: RemoteConfigurationData>(requestData: T, completion: @escaping ClosureResult<T.ReturnDecodable>) {
         self.remoteConfig().fetchAndActivate { (status, error) in
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { [self] in
                 if status == .error {
                     completion(.error(nil))
                 } else {

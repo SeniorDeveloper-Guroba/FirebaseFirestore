@@ -2,7 +2,7 @@
 import FirebaseRemoteConfig
 import Firebase
 
-public struct FirebaseService {
+public class FirebaseService {
     
     public func setup(){
         FirebaseApp.configure()

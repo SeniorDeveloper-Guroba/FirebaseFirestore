@@ -11,9 +11,8 @@ public protocol RequestData {
     
     associatedtype ReturnDecodable: Decodable
     
-    var collection: CollectionReference? { get }
-    var document  : DocumentReference?   { get }
-    var documentID: String?              { get }
+    var collectionID: String { get }
+    var documentID  : String { get }
 }
 
 import FirebaseFirestore
@@ -23,8 +22,7 @@ public protocol RemoteConfigurationData {
     
     associatedtype ReturnDecodable: Decodable
     
-    var collection: CollectionReference? { get }
-    var document  : DocumentReference?   { get }
-    var documentID: String?              { get }
+    var collectionID: String? { get }
+    var documentID  : String? { get }
 }
 
