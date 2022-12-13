@@ -7,22 +7,10 @@
 import FirebaseFirestore
 import Foundation
 
-public protocol RequestData {
+public protocol RequestDataAdvertising {
     
     associatedtype ReturnDecodable: Decodable
     
     var collectionID: String { get }
     var documentID  : String { get }
 }
-
-import FirebaseFirestore
-import Foundation
-
-public protocol RemoteConfigurationData {
-    
-    associatedtype ReturnDecodable: Decodable
-    
-    var collectionID: String? { get }
-    var documentID  : String? { get }
-}
-

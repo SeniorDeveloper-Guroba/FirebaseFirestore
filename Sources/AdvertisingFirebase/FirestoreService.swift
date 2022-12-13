@@ -12,7 +12,7 @@ public class FirestoreService {
     
     private let reference = Firestore.firestore()
     
-    public func get<T: RequestData>(requestData: T, completion: @escaping ClosureResult<T.ReturnDecodable>) {
+    public func get<T: RequestDataAdvertising>(requestData: T, completion: @escaping ClosureResult<T.ReturnDecodable>) {
         
         let document = reference.collection(requestData.collectionID).document(requestData.documentID)
         
