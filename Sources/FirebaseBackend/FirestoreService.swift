@@ -10,49 +10,39 @@ import Foundation
 
 public class FirestoreService {
     
-    private let reference = Firestore.firestore()
+    private let getFirestoreService = GetFirestoreService()
+    private let getListenerFirestoreService = GetListenerFirestoreService()
     
-    public func getSnapshotListener<T: RequestData>(requestData: T, completion: @escaping ClosureResult<T.ReturnDecodable>) {
-        
-        let document = reference.collection(requestData.collectionID).document(requestData.documentID)
-        
-        document.addSnapshotListener { (document, error) in
-            
-            if let error = error {
-                completion(.error(error))
-                return
-            }
-            
-            if let document = document, document.exists {
-                do {
-                    let object = try document.data(as: T.ReturnDecodable.self)
-                    completion(.object(object))
-                } catch let error {
-                    completion(.error(error))
-                }
-            }
+    public func getSnapshotListener<T: RequestData>(requestData: T, completion: @escaping ClosureResult<[T.ReturnDecodable]>) {
+        let documentID = requestData.documentID ?? ""
+        switch documentID.isEmpty {
+            case true:
+                getListenerFirestoreService.getSnapshotListenerForCollection(
+                    requestData: requestData,
+                    completion: completion
+                )
+            case false:
+                getListenerFirestoreService.getSnapshotListenerForDocument(
+                    requestData: requestData,
+                    completion: completion
+                )
         }
     }
     
-    public func get<T: RequestData>(requestData: T, completion: @escaping ClosureResult<T.ReturnDecodable>) {
-        
-        let document = reference.collection(requestData.collectionID).document(requestData.documentID)
-        document.getDocument { document, error in
-            if let error = error {
-                completion(.error(error))
-                return
-            }
-            
-            if let document = document, document.exists {
-                do {
-                    let object = try document.data(as: T.ReturnDecodable.self)
-                    completion(.object(object))
-                } catch let error {
-                    completion(.error(error))
-                }
-            }
+    public func get<T: RequestData>(requestData: T, completion: @escaping ClosureResult<[T.ReturnDecodable]>) {
+        let documentID = requestData.documentID ?? ""
+        switch documentID.isEmpty {
+            case true:
+                getFirestoreService.getForCollection(
+                    requestData: requestData,
+                    completion: completion
+                )
+            case false:
+                getFirestoreService.getForDocument(
+                    requestData: requestData,
+                    completion: completion
+                )
         }
     }
-    
     public init() {}
 }

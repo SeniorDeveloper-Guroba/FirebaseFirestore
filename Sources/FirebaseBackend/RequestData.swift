@@ -11,8 +11,8 @@ public protocol RequestData {
     
     associatedtype ReturnDecodable: Decodable
     
-    var collectionID: String { get }
-    var documentID  : String { get }
+    var collectionID: String  { get }
+    var documentID  : String? { get }
 }
 
 import FirebaseFirestore

@@ -6,7 +6,6 @@ public class FirebaseService {
     
     public func setup(){
         FirebaseApp.configure()
-        remoteConfig()
     }
     
     private func remoteConfig() -> RemoteConfig {
