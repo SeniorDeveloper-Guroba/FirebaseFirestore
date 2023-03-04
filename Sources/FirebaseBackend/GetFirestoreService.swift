@@ -30,6 +30,8 @@ struct GetFirestoreService {
                 } catch let error {
                     completion(.error(error))
                 }
+            } else {
+                completion(.error(nil))
             }
         }
     }
