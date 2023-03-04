@@ -1,8 +1,8 @@
 //
 //  RequestData.swift
-//  GDFirebase
+//  
 //
-//  Created by Senior Developer on 07.12.2022.
+//  Created by Developer on 07.12.2022.
 //
 import FirebaseFirestore
 import Foundation

@@ -2,7 +2,7 @@
 //  GetListenerFirestoreService.swift
 //  
 //
-//  Created by Senior Developer on 12.02.2023.
+//  Created by Developer on 12.02.2023.
 //
 import FirebaseFirestore
 import Foundation

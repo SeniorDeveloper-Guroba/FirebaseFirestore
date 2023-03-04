@@ -2,7 +2,7 @@
 //  TypeNames.swift
 //  
 //
-//  Created by Senior Developer on 06.12.2022.
+//  Created by Developer on 06.12.2022.
 //
 import FirebaseFirestore
 import Foundation
