@@ -1,8 +1,7 @@
+//  Configuration.swift
 //
-//  FirestoreService.swift
-//  
 //
-//  Created by Developer on 06.12.2022.
+//  Created by Firestore
 //
 import FirebaseFirestoreSwift
 import FirebaseFirestore

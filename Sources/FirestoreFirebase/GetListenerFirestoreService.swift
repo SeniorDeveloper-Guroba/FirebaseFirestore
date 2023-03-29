@@ -1,23 +1,22 @@
+//  Configuration.swift
 //
-//  GetFirestoreService.swift
-//  
 //
-//  Created by Developer on 12.02.2023.
+//  Created by Firestore
 //
 import FirebaseFirestore
 import Foundation
 
-struct GetFirestoreService {
+struct GetListenerFirestoreService {
     
     private let reference = Firestore.firestore()
     
-    public func getForDocument<T: RequestData>(requestData: T, completion: @escaping ClosureResult<[T.ReturnDecodable]>) {
+    public func getSnapshotListenerForDocument<T: RequestData>(requestData: T, completion: @escaping ClosureResult<[T.ReturnDecodable]>) {
         let documentID = requestData.documentID ?? ""
         let document = reference
             .collection(requestData.collectionID)
             .document(documentID)
         
-        document.getDocument { document, error in
+        document.addSnapshotListener { (document, error) in
             if let error = error {
                 completion(.error(error))
                 return
@@ -30,17 +29,15 @@ struct GetFirestoreService {
                 } catch let error {
                     completion(.error(error))
                 }
-            } else {
-                completion(.error(nil))
             }
         }
     }
     
-    public func getForCollection<T: RequestData>(requestData: T, completion: @escaping ClosureResult<[T.ReturnDecodable]>) {
+    public func getSnapshotListenerForCollection<T: RequestData>(requestData: T, completion: @escaping ClosureResult<[T.ReturnDecodable]>) {
         
         let collection = reference.collection(requestData.collectionID)
         
-        collection.getDocuments { querySnapshot, error in
+        collection.addSnapshotListener { querySnapshot, error in
             
             if let error = error {
                 completion(.error(error))

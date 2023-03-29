@@ -2,7 +2,7 @@
 //  Configuration.swift
 //  
 //
-//  Created by Developer on 25.07.2022.
+//  Created by Firestore
 //
 import Foundation
 

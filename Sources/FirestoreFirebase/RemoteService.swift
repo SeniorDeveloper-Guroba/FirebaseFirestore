@@ -1,8 +1,7 @@
+//  Configuration.swift
 //
-//  RemoteService.swift
-//  
 //
-//  Created by Developer on 06.12.2022.
+//  Created by Firestore
 //
 import FirebaseRemoteConfig
 import Firebase
