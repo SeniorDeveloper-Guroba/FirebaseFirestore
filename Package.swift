@@ -14,7 +14,7 @@ let package = Package(
             targets: ["FirestoreFirebase"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/firebase/firebase-ios-sdk.git", branch: "master"),
+        .package(url: "https://github.com/firebase/firebase-ios-sdk.git", from: "10.6.0"),
     ],
     targets: [
         .target(
