@@ -17,6 +17,6 @@ public typealias ClosureResult<T: Decodable> = ((FirebaseResult<T>) -> Void)
 
 public enum FirebaseResult<T: Decodable> {
     
-    case object(T)
+    case object(T?)
     case error(Error?)
 }

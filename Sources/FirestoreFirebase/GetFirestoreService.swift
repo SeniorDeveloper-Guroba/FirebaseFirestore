@@ -6,7 +6,7 @@
 import FirebaseFirestore
 import Foundation
 
-struct GetFirestoreService {
+public struct GetFirestoreService {
     
     private let reference = Firestore.firestore()
     
