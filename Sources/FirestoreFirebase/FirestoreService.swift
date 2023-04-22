@@ -45,8 +45,7 @@ public class FirestoreService {
         }
     }
     
-    public func save<T: RequestData>(requestData: T, completion: @escaping ClosureResult<[T.ReturnDecodable]>) {
-        let documentID = requestData.documentID ?? ""
+    public func save<T: RequestData>(requestData: T, completion: @escaping ClosureResult<T.SaveEncodable>) {
         saveFirestoreService.save(
             requestData: requestData,
             completion: completion
