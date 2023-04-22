@@ -10,6 +10,7 @@ import Foundation
 public class FirestoreService {
     
     private let getFirestoreService = GetFirestoreService()
+    private let saveFirestoreService = SaveFirestoreService()
     private let getListenerFirestoreService = GetListenerFirestoreService()
     
     public func getSnapshotListener<T: RequestData>(requestData: T, completion: @escaping ClosureResult<[T.ReturnDecodable]>) {
@@ -42,6 +43,14 @@ public class FirestoreService {
                     completion: completion
                 )
         }
+    }
+    
+    public func save<T: RequestData>(requestData: T, completion: @escaping ClosureResult<[T.ReturnDecodable]>) {
+        let documentID = requestData.documentID ?? ""
+        saveFirestoreService.save(
+            requestData: requestData,
+            completion: completion
+        )
     }
     public init() {}
 }
