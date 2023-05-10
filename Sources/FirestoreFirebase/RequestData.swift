@@ -9,16 +9,15 @@ import Foundation
 
 public protocol RequestData {
     
-    associatedtype ReturnDecodable: Decodable
-    associatedtype SaveEncodable: Encodable
+    associatedtype AnyData: Codable
     
     var collectionID: String   { get }
     var documentID  : String?  { get }
-    var data        : SaveEncodable? { get set }
+    var data        : AnyData? { get set }
 }
 public protocol RemoteConfigurationData {
     
-    associatedtype ReturnDecodable: Decodable
+    associatedtype AnyData: Codable
     
     var collectionID: String? { get }
     var documentID  : String? { get }

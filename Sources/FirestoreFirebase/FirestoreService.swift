@@ -13,7 +13,7 @@ public class FirestoreService {
     private let saveFirestoreService = SaveFirestoreService()
     private let getListenerFirestoreService = GetListenerFirestoreService()
     
-    public func getSnapshotListener<T: RequestData>(requestData: T, completion: @escaping ClosureResult<[T.ReturnDecodable]>) {
+    public func getSnapshotListener<T: RequestData>(requestData: T, completion: @escaping ClosureResult<[T.AnyData]>) {
         let documentID = requestData.documentID ?? ""
         switch documentID.isEmpty {
             case true:
@@ -29,7 +29,7 @@ public class FirestoreService {
         }
     }
     
-    public func get<T: RequestData>(requestData: T, completion: @escaping ClosureResult<[T.ReturnDecodable]>) {
+    public func get<T: RequestData>(requestData: T, completion: @escaping ClosureResult<[T.AnyData]>) {
         let documentID = requestData.documentID ?? ""
         switch documentID.isEmpty {
             case true:
@@ -45,7 +45,7 @@ public class FirestoreService {
         }
     }
     
-    public func save<T: RequestData>(requestData: T, completion: @escaping ClosureResult<T.SaveEncodable>) {
+    public func save<T: RequestData>(requestData: T, completion: @escaping ClosureResult<T.AnyData>) {
         saveFirestoreService.save(
             requestData: requestData,
             completion: completion

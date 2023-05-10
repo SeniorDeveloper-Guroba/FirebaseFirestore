@@ -11,7 +11,7 @@ public struct SaveFirestoreService {
     
     private let reference = Firestore.firestore()
     
-    public func save<T: RequestData>(requestData: T, completion: @escaping ClosureResult<T.SaveEncodable>) {
+    public func save<T: RequestData>(requestData: T, completion: @escaping ClosureResult<T.AnyData>) {
         let documentID = requestData.documentID ?? ""
         let document = reference
             .collection(requestData.collectionID)

@@ -18,7 +18,7 @@ public class RemoteService {
         return remoteConfig
     }
     
-    public func getConfiguration<T: RequestData>(requestData: T, completion: @escaping ClosureResult<T.ReturnDecodable>) {
+    public func getConfiguration<T: RequestData>(requestData: T, completion: @escaping ClosureResult<T.AnyData>) {
         self.remoteConfig().fetchAndActivate { (status, error) in
             DispatchQueue.main.async { [self] in
                 if status == .error {
@@ -26,7 +26,7 @@ public class RemoteService {
                 } else {
                     let data = self.remoteConfig()[configurationID].dataValue
                     do {
-                        let object = try JSONDecoder().decode(T.ReturnDecodable.self, from: data)
+                        let object = try JSONDecoder().decode(T.AnyData.self, from: data)
                         completion(.object(object))
                     } catch {
                         completion(.error(nil))

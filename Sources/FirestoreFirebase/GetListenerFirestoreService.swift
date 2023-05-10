@@ -10,7 +10,7 @@ struct GetListenerFirestoreService {
     
     private let reference = Firestore.firestore()
     
-    public func getSnapshotListenerForDocument<T: RequestData>(requestData: T, completion: @escaping ClosureResult<[T.ReturnDecodable]>) {
+    public func getSnapshotListenerForDocument<T: RequestData>(requestData: T, completion: @escaping ClosureResult<[T.AnyData]>) {
         let documentID = requestData.documentID ?? ""
         let document = reference
             .collection(requestData.collectionID)
@@ -24,7 +24,7 @@ struct GetListenerFirestoreService {
             
             if let document = document, document.exists {
                 do {
-                    let object = try document.data(as: T.ReturnDecodable.self)
+                    let object = try document.data(as: T.AnyData.self)
                     completion(.object([object]))
                 } catch let error {
                     completion(.error(error))
@@ -33,7 +33,7 @@ struct GetListenerFirestoreService {
         }
     }
     
-    public func getSnapshotListenerForCollection<T: RequestData>(requestData: T, completion: @escaping ClosureResult<[T.ReturnDecodable]>) {
+    public func getSnapshotListenerForCollection<T: RequestData>(requestData: T, completion: @escaping ClosureResult<[T.AnyData]>) {
         
         let collection = reference.collection(requestData.collectionID)
         
@@ -46,7 +46,7 @@ struct GetListenerFirestoreService {
             
             let objects = querySnapshot?.documents.compactMap({ document in
                 do {
-                    let object = try? document.data(as: T.ReturnDecodable.self)
+                    let object = try? document.data(as: T.AnyData.self)
                     return object
                 }
             })

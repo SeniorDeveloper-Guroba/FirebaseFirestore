@@ -10,7 +10,7 @@ public struct GetFirestoreService {
     
     private let reference = Firestore.firestore()
     
-    public func getForDocument<T: RequestData>(requestData: T, completion: @escaping ClosureResult<[T.ReturnDecodable]>) {
+    public func getForDocument<T: RequestData>(requestData: T, completion: @escaping ClosureResult<[T.AnyData]>) {
         let documentID = requestData.documentID ?? ""
         let document = reference
             .collection(requestData.collectionID)
@@ -24,7 +24,7 @@ public struct GetFirestoreService {
             
             if let document = document, document.exists {
                 do {
-                    let object = try document.data(as: T.ReturnDecodable.self)
+                    let object = try document.data(as: T.AnyData.self)
                     completion(.object([object]))
                 } catch let error {
                     completion(.error(error))
@@ -35,7 +35,7 @@ public struct GetFirestoreService {
         }
     }
     
-    public func getForCollection<T: RequestData>(requestData: T, completion: @escaping ClosureResult<[T.ReturnDecodable]>) {
+    public func getForCollection<T: RequestData>(requestData: T, completion: @escaping ClosureResult<[T.AnyData]>) {
         
         let collection = reference.collection(requestData.collectionID)
         
@@ -48,7 +48,7 @@ public struct GetFirestoreService {
             
             let objects = querySnapshot?.documents.compactMap({ document in
                 do {
-                    let object = try? document.data(as: T.ReturnDecodable.self)
+                    let object = try? document.data(as: T.AnyData.self)
                     return object
                 }
             })
