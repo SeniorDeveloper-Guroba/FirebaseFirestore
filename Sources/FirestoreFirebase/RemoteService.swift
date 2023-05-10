@@ -36,10 +36,10 @@ public class RemoteService {
         }
     }
     
-    public func getBoolValue(key: String, completion: @escaping ClosureResult<Bool>) {
+    public func getBoolValue(key: String, completion: @escaping Closure<Bool>) {
         self.remoteConfig().fetchAndActivate { (status, error) in
             let boolValue = self.remoteConfig()[key].boolValue
-            completion(.object(boolValue))
+            completion(boolValue)
         }
     }
     
