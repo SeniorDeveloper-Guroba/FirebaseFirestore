@@ -18,7 +18,7 @@ public struct Configuration {
     }
 }
 
-extension Configuration: Decodable {
+extension Configuration: Codable {
     
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
