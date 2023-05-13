@@ -60,5 +60,36 @@ public struct GetFirestoreService {
         }
     }
     
+    // Acync await
+    
+    public func getForDocument<T: RequestData>(requestData: T) async throws -> [T.AnyData] {
+        let documentID = requestData.documentID ?? ""
+        let document = reference
+            .collection(requestData.collectionID)
+            .document(documentID)
+        
+        do {
+            let object = try await document.getDocument(as: T.AnyData.self)
+            return [object]
+        } catch let error {
+            throw error
+        }
+    }
+    
+    public func getForCollection<T: RequestData>(requestData: T) async throws -> [T.AnyData]  {
+        
+        let collection = reference.collection(requestData.collectionID)
+        
+        do {
+            let objects = try await collection.getDocuments().documents.compactMap({ document in
+                try? document.data(as: T.AnyData.self)
+            })
+            return objects
+            
+        } catch let error {
+            throw error
+        }
+    }
+    
     public init(){}
 }
