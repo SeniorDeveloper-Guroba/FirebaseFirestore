@@ -43,5 +43,13 @@ public class RemoteService {
         }
     }
     
+    public func getStringValue(key: String, completion: @escaping Closure<String>) {
+        self.remoteConfig().fetchAndActivate { (status, error) in
+            if let stringValue = self.remoteConfig()[key].stringValue {
+                completion(stringValue)
+            }
+        }
+    }
+    
     public init() {}
 }
