@@ -51,5 +51,13 @@ public class RemoteService {
         }
     }
     
+    public func getIntegerValue(key: String, completion: @escaping Closure<Int>) {
+        self.remoteConfig().fetchAndActivate { (status, error) in
+            let numberValue = self.remoteConfig()[key].numberValue
+            let intValue = numberValue.intValue
+            completion(intValue)
+        }
+    }
+    
     public init() {}
 }
