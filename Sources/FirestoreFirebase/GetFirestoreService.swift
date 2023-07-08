@@ -11,12 +11,14 @@ public struct GetFirestoreService {
     private let reference = Firestore.firestore()
     
     public func getForDocument<T: RequestData>(requestData: T, completion: @escaping ClosureResult<[T.AnyData]>) {
-        let documentID = requestData.documentID ?? ""
-        let document = reference
-            .collection(requestData.collectionID)
-            .document(documentID)
+		
+		if requestData.documentReference == nil {
+			requestData.setDocumentReference()
+		}
+		
+		guard let documentReference = requestData.documentReference else { return }
         
-        document.getDocument { document, error in
+		documentReference.getDocument { document, error in
             if let error = error {
                 completion(.error(error))
                 return
@@ -37,9 +39,13 @@ public struct GetFirestoreService {
     
     public func getForCollection<T: RequestData>(requestData: T, completion: @escaping ClosureResult<[T.AnyData]>) {
         
-        let collection = reference.collection(requestData.collectionID)
+		if requestData.collectionReference == nil {
+			requestData.setCollectionReference()
+		}
+		
+		guard let collectionReference = requestData.collectionReference else { return }
         
-        collection.getDocuments { querySnapshot, error in
+		collectionReference.getDocuments { querySnapshot, error in
             
             if let error = error {
                 completion(.error(error))
@@ -62,26 +68,32 @@ public struct GetFirestoreService {
     
     // Acync await
     
-    public func getForDocument<T: RequestData>(requestData: T) async throws -> [T.AnyData] {
-        let documentID = requestData.documentID ?? ""
-        let document = reference
-            .collection(requestData.collectionID)
-            .document(documentID)
+    public func getForDocument<T: RequestData>(requestData: T) async throws -> [T.AnyData]? {
+		
+		if requestData.documentReference == nil {
+			requestData.setDocumentReference()
+		}
+		
+		guard let documentReference = requestData.documentReference else { return nil }
         
         do {
-            let object = try await document.getDocument(as: T.AnyData.self)
+            let object = try await documentReference.getDocument(as: T.AnyData.self)
             return [object]
         } catch let error {
             throw error
         }
     }
     
-    public func getForCollection<T: RequestData>(requestData: T) async throws -> [T.AnyData]  {
+    public func getForCollection<T: RequestData>(requestData: T) async throws -> [T.AnyData]?  {
         
-        let collection = reference.collection(requestData.collectionID)
+		if requestData.collectionReference == nil {
+			requestData.setCollectionReference()
+		}
+		
+		guard let collectionReference = requestData.collectionReference else { return nil }
         
         do {
-            let objects = try await collection.getDocuments().documents.compactMap({ document in
+            let objects = try await collectionReference.getDocuments().documents.compactMap({ document in
                 try? document.data(as: T.AnyData.self)
             })
             return objects

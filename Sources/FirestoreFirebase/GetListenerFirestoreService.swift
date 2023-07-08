@@ -8,15 +8,12 @@ import Foundation
 
 struct GetListenerFirestoreService {
     
-    private let reference = Firestore.firestore()
-    
+	
     public func getSnapshotListenerForDocument<T: RequestData>(requestData: T, completion: @escaping ClosureResult<[T.AnyData]>) {
-        let documentID = requestData.documentID ?? ""
-        let document = reference
-            .collection(requestData.collectionID)
-            .document(documentID)
-        
-        document.addSnapshotListener { (document, error) in
+       
+		let documentReference = requestData.documentReference
+		
+		documentReference?.addSnapshotListener { (document, error) in
             if let error = error {
                 completion(.error(error))
                 return
@@ -35,9 +32,9 @@ struct GetListenerFirestoreService {
     
     public func getSnapshotListenerForCollection<T: RequestData>(requestData: T, completion: @escaping ClosureResult<[T.AnyData]>) {
         
-        let collection = reference.collection(requestData.collectionID)
+		let collectionReference = requestData.collectionReference
         
-        collection.addSnapshotListener { querySnapshot, error in
+		collectionReference?.addSnapshotListener { querySnapshot, error in
             
             if let error = error {
                 completion(.error(error))

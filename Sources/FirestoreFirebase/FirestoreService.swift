@@ -14,8 +14,8 @@ public class FirestoreService {
     private let getListenerFirestoreService = GetListenerFirestoreService()
     
     public func getSnapshotListener<T: RequestData>(requestData: T, completion: @escaping ClosureResult<[T.AnyData]>) {
-        let documentID = requestData.documentID ?? ""
-        switch documentID.isEmpty {
+		let documentReference = requestData.documentReference
+        switch documentReference == nil {
             case true:
                 getListenerFirestoreService.getSnapshotListenerForCollection(
                     requestData: requestData,
@@ -30,8 +30,8 @@ public class FirestoreService {
     }
     
     public func get<T: RequestData>(requestData: T, completion: @escaping ClosureResult<[T.AnyData]>) {
-        let documentID = requestData.documentID ?? ""
-        switch documentID.isEmpty {
+        let documentReference = requestData.documentReference
+        switch documentReference == nil {
             case true:
                 getFirestoreService.getForCollection(
                     requestData: requestData,
