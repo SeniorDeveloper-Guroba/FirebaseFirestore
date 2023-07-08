@@ -12,10 +12,7 @@ public struct SaveFirestoreService {
     private let reference = Firestore.firestore()
     
     public func save<T: RequestData>(requestData: T, completion: @escaping ClosureResult<T.AnyData>) {
-		if requestData.documentReference == nil {
-			requestData.setDocumentReference()
-		}
-		
+
 		guard let document = requestData.documentReference else { return }
 		
         do {

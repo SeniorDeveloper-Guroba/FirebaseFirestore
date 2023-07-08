@@ -12,10 +12,6 @@ public struct GetFirestoreService {
     
     public func getForDocument<T: RequestData>(requestData: T, completion: @escaping ClosureResult<[T.AnyData]>) {
 		
-		if requestData.documentReference == nil {
-			requestData.setDocumentReference()
-		}
-		
 		guard let documentReference = requestData.documentReference else { return }
         
 		documentReference.getDocument { document, error in
@@ -38,11 +34,7 @@ public struct GetFirestoreService {
     }
     
     public func getForCollection<T: RequestData>(requestData: T, completion: @escaping ClosureResult<[T.AnyData]>) {
-        
-		if requestData.collectionReference == nil {
-			requestData.setCollectionReference()
-		}
-		
+       
 		guard let collectionReference = requestData.collectionReference else { return }
         
 		collectionReference.getDocuments { querySnapshot, error in
@@ -70,10 +62,6 @@ public struct GetFirestoreService {
     
     public func getForDocument<T: RequestData>(requestData: T) async throws -> [T.AnyData]? {
 		
-		if requestData.documentReference == nil {
-			requestData.setDocumentReference()
-		}
-		
 		guard let documentReference = requestData.documentReference else { return nil }
         
         do {
@@ -85,11 +73,7 @@ public struct GetFirestoreService {
     }
     
     public func getForCollection<T: RequestData>(requestData: T) async throws -> [T.AnyData]?  {
-        
-		if requestData.collectionReference == nil {
-			requestData.setCollectionReference()
-		}
-		
+
 		guard let collectionReference = requestData.collectionReference else { return nil }
         
         do {
