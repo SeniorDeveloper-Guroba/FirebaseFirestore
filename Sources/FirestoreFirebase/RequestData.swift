@@ -7,8 +7,6 @@
 import FirebaseFirestore
 import Foundation
 
-
-
 public protocol RequestData: AnyObject {
     
     associatedtype AnyData: Codable
