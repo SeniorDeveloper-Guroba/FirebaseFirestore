@@ -28,7 +28,7 @@ public struct GetFirestoreService {
                     completion(.error(error))
                 }
             } else {
-                completion(.error(nil))
+				completion(.error(RequestFirebaseError.invalidGetDocument))
             }
         }
     }
@@ -48,10 +48,10 @@ public struct GetFirestoreService {
                 do {
                     let object = try? document.data(as: T.AnyData.self)
                     return object
-                }
+				}
             })
             guard let objects = objects, !objects.isEmpty else {
-                completion(.error(error))
+				completion(.error(RequestFirebaseError.invalidGetCollection))
                 return
             }
             completion(.object(objects))
